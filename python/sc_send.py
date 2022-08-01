@@ -12,24 +12,36 @@ def init(ip="127.0.0.1", port=57120):
   client = udp_client.SimpleUDPClient(ip, port) #default ip and port for SC
   return 0
 
-def send(note_index=None, note_amp=None):
+def off_all():
+  ret = 0
+  for i in range(int(FREQ_STEP)):
+    ret += send(i, 0.0)
+  if ret > 0:
+    return 1
+  return 0
+
+def send(note_index=None, note_amp=None, post_gain=1.0):
   if note_index == None:
     return 1
   if note_amp == None:
     return 1
-
-  df = (FREQ_MAX - FREQ_MIN) / FREQ_STEP
 
   pre   = '/key'
   post  = str(note_index)
   final = pre+post
-  freq  = df * note_index
-  client.send_message(final, (freq, note_amp)) # set the frequency at 440
+  freq  = get_freq(note_index)
+  client.send_message(final, (freq, note_amp*post_gain)) # set the frequency at 440
 
   return 0
 
+def get_freq(note_index=None):
+  if note_index == None:
+    return -1
+  df = (FREQ_MAX - FREQ_MIN) / FREQ_STEP
+  freq  = df * note_index + FREQ_MIN
+  return freq
 
-def send_note_major(note_index=None, note_amp=None):
+def send_note_major(note_index=None, note_amp=None, post_gain=1.0, key_index=0):
   if note_index == None:
     return 1
   if note_amp == None:
@@ -37,7 +49,7 @@ def send_note_major(note_index=None, note_amp=None):
 
 
 
-def send_note(note_index=None, note_amp=None):
+def send_note(note_index=None, note_amp=None, post_gain=1.0):
   if note_index == None:
     return 1
   if note_amp == None:
@@ -51,5 +63,5 @@ def send_note(note_index=None, note_amp=None):
     freq = nf.NOTES[note_index]
   except:
     return 1
-  client.send_message(final, (freq, note_amp)) # set the frequency at 440
+  client.send_message(final, (freq, note_amp*post_gain)) # set the frequency at 440
   return 0

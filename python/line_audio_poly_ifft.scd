@@ -106,6 +106,28 @@ s.makeBundle( nil, {
 });
 )
 
+
+
+
+(
+//g = Group.new;
+128.do(
+	{
+		arg jj;
+		// modulate frequency
+
+		//{ Resonz.ar(z[jj], 8000, 0.05) }.play
+		jj.postln;
+	}
+)
+)
+
+
+
+
+{ Resonz.ar(In.ar(0), 8000, 0.05) }.play
+
+
 s.sync;
 
 

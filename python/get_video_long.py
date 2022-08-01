@@ -11,8 +11,12 @@ print( "height = ", height )
 print( "width  = ", width  )
 print( "dim    = ", dim    )
 #frame = frame_orig
+
+scs.FREQ_STEP = 128
+
 new_height = int(scs.FREQ_STEP)
-new_width  = int(width * new_height / height)
+new_width  = int(width)
+#new_width  = int(width * new_height / height)
 frame = cv2.resize(frame_orig, ( new_width, new_height), interpolation = cv2.INTER_LINEAR)
 
 height, width, dim = frame.shape
@@ -32,10 +36,11 @@ for i in range(width):
   col = img_gray[:,i]
   for j in range(len(col)):
     freq = j
-    freq_amp = col[j] / 255.0 / scs.FREQ_STEP * 10.0 
-    scs.send(freq,freq_amp)
+    freq_amp = col[j] / 255.0 / scs.FREQ_STEP
+    scs.send(freq,freq_amp, 10.0)
     #print(freq, " " , freq_amp)
     print(".",end='')
   print()
-  time.sleep(0.5)
-  
+  time.sleep(0.1)
+
+scs.off_all()  
