@@ -52,7 +52,9 @@ s.makeBundle( nil, {
 			var theI;
 			theI = 0;
 			pyFreq = msg[1].asFloat;
-			("OSC" + msg[0] + " freq is" + pyFreq ).postln; h.set( \freq, pyFreq );
+			("OSC" + msg[0] + " freq is" + pyFreq ).postln;
+			h.set( \freq, pyFreq );
+				h.set( \amp, msg[2].asFloat);
 			128.do(
 				{
 					arg jj;

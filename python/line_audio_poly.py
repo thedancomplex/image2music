@@ -9,7 +9,8 @@ f = f + f/100.0
  # client.send_message('/key0', f) # set the frequency at 440
  # client.send_message('/key1', f/2.0) # set the frequency at 440
 #client.send_message('/key0', (400, 0)) # set the frequency at 440
-client.send_message('/key127', (410, 0)) # set the frequency at 440
+client.send_message('/key1', (410, 0.3)) # set the frequency at 440
+client.send_message('/key127', (500, 0.4)) # set the frequency at 440
 #client.send_message('/key1', 200) # set the frequency at 440
 #client.send_message('/key2', 500) # set the frequency at 440
 #client.send_message('/key3', 1000) # set the frequency at 440
