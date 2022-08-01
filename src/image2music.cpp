@@ -4,7 +4,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/opencv.hpp>
-
+#include <matlab.hpp>
 
 #include <iostream>
 
@@ -29,7 +29,18 @@ int display_image()
 
     //! [imshow]
     cv::resize(img, img, cv::Size(img.cols * 1024.0/img.rows , 1024), 0, 0, cv::INTER_LINEAR);
+
+    Mat img_gray;
+    cv::cvtColor(img, img_gray, cv::COLOR_BGR2GRAY);
+
+    Mat col_i = img.col(0);
+    Mat col_i_gray = img_gray.col(0);
+    ifft(col_i_gray);
+    std::cout << col_i << std::endl;
+    std::cout << col_i_gray << std::endl;
+
     cv::imshow("Display window", img);
+    cv::imshow("Display window gray", img_gray);
     int k = cv::waitKey(0); // Wait for a keystroke in the window
     //! [imshow]
 
