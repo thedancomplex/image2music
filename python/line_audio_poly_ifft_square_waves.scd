@@ -38,7 +38,7 @@ s.makeBundle( nil, {
 		j = SynthDef( iis, { | amp = 0.01, freq = 333, trig = 1, filter_center = 1000.0, filter_width=0.05 |
 			var env, sig, res;
 			env = EnvGen.kr( Env.asr( 0.001, 0.9, 0.001 ), trig, doneAction: 0 );
-			sig = SinOsc.ar( [freq], 0.0, amp ) * env;
+			sig = Pulse.ar( [freq], 0.4, amp ) * env;
 			res = Resonz.ar(sig, filter_center, filter_width);
 
 			//sig = LFTri.ar( [ freq, freq * 0.999 ], 0.0, amp ) * env;

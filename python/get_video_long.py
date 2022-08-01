@@ -32,12 +32,19 @@ scs.FREQ_MAX=1000.0
 
 scs.init()
 
+
+f_filt_center = 2000.0
+f_filt_swing  = 1500.0
+f_filt_freq   = 0.5
+
 for i in range(width):
   col = img_gray[:,i]
   for j in range(len(col)):
     freq = j
     freq_amp = col[j] / 255.0 / scs.FREQ_STEP
-    scs.send(freq,freq_amp, 10.0)
+
+    filt = f_filt_center + f_filt_swing*np.sin(time.time()*2.0*np.pi*f_filt_freq)
+    scs.send(freq,freq_amp, 100.0, filt)
     #print(freq, " " , freq_amp)
     print(".",end='')
   print()
