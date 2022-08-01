@@ -2,6 +2,9 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+
 
 #include <iostream>
 
@@ -25,6 +28,7 @@ int display_image()
     //! [empty]
 
     //! [imshow]
+    cv::resize(img, img, cv::Size(img.cols * 1024.0/img.rows , 1024), 0, 0, cv::INTER_LINEAR);
     cv::imshow("Display window", img);
     int k = cv::waitKey(0); // Wait for a keystroke in the window
     //! [imshow]
