@@ -1,20 +1,29 @@
 from pythonosc import udp_client
 import time
 
-client = udp_client.SimpleUDPClient("127.0.0.1", 57120) #default ip and port for SC
 
-f = 450
-#while True:
-f = f + f/100.0
- # client.send_message('/key0', f) # set the frequency at 440
- # client.send_message('/key1', f/2.0) # set the frequency at 440
-#client.send_message('/key0', (400, 0)) # set the frequency at 440
-client.send_message('/key1', (410, 0.3)) # set the frequency at 440
-client.send_message('/key127', (500, 0.4)) # set the frequency at 440
-#client.send_message('/key1', 200) # set the frequency at 440
-#client.send_message('/key2', 500) # set the frequency at 440
-#client.send_message('/key3', 1000) # set the frequency at 440
-#client.send_message('/key4', 2000) # set the frequency at 440
-#client.send_message('/key5', 5000) # set the frequency at 440
-#  break
-time.sleep(0.5)
+FREQ_MIN  = 20.0
+FREQ_MAX  = 8000.0
+FREQ_STEP = 128.0
+client = None
+
+def init(ip="127.0.0.1", port=57120):
+  global client 
+  client = udp_client.SimpleUDPClient(ip, port) #default ip and port for SC
+  return 0
+
+def send(note_index=None, note_amp=None):
+  if note_index == None:
+    return 1
+  if note_amp == None:
+    return 1
+
+  df = (FREQ_MAX - FREQ_MIN) / FREQ_STEP
+
+  pre   = '/key'
+  post  = str(note_index)
+  final = pre+post
+  freq  = df * note_index
+  client.send_message(final, (freq, note_amp)) # set the frequency at 440
+
+  return 0

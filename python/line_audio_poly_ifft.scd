@@ -50,11 +50,11 @@ s.makeBundle( nil, {
 		x = OSCFunc( { | msg, time, addr, port |
 			var pyFreq;
 			var theI;
+			var pyAmp;
 			theI = 0;
 			pyFreq = msg[1].asFloat;
+			pyAmp  = msg[2].asFloat;
 			("OSC" + msg[0] + " freq is" + pyFreq ).postln;
-			h.set( \freq, pyFreq );
-				h.set( \amp, msg[2].asFloat);
 			128.do(
 				{
 					arg jj;
@@ -79,8 +79,9 @@ s.makeBundle( nil, {
 						{ppp=0;}// "no".postln;}
 					)
 				}
-			)
-
+			);
+			z[theI].set( \freq, pyFreq );
+			z[theI].set( \amp, pyAmp);
 						//z[theI].set( \amp, 0.4 );
 		}
 		, ii );
@@ -107,11 +108,11 @@ s.makeBundle( nil, {
 
 s.sync;
 
-(
+
 z[127].postln;
 y[127].postln;
 w[127].postln;
-)
+
 
 this.clearAll;
 

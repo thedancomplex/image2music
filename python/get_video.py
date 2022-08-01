@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import time
+import sc_send as scs
 
 vid = cv2.VideoCapture('vtx250.jpg')
 ret, frame_orig = vid.read()
@@ -19,6 +20,16 @@ print( "new width  = ", width  )
 print( "new dim    = ", dim    )
 print(frame.shape)
 
+img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+scs.init()
+
 for i in range(width):
-  col = frame[:,i]
+  col = img_gray[:,i]
+  for j in range(len(col)):
+    freq = j
+    freq_amp = col[j] / 255.0 / scs.FREQ_STEP * 10.0 
+    scs.send(freq,freq_amp)
+    print(freq, " " , freq_amp)
+  time.sleep(0.1)
   
