@@ -3,8 +3,8 @@ import numpy as np
 import time
 import sc_send as scs
 
-vid = cv2.VideoCapture('vtx250.jpg')
-#vid = cv2.VideoCapture('starry_night.jpg')
+#vid = cv2.VideoCapture('vtx250.jpg')
+vid = cv2.VideoCapture('starry_night.jpg')
 ret, frame_orig = vid.read()
 height, width, dim = frame_orig.shape
 print( "height = ", height )
@@ -35,6 +35,7 @@ scs.init()
 
 f_filt_center = 2000.0
 f_filt_swing  = 1500.0
+f_filt_width  = 0.05
 f_filt_freq   = 0.5
 
 for i in range(width):
@@ -46,8 +47,10 @@ for i in range(width):
     freq_amp = col[j] / 255.0 / scs.FREQ_STEP
 
     filt_freq = col_filt[j] / 255.0 * f_filt_center
+    filt_width = col_filt_width[j] / 255.0 * f_filt_width
 
     scs.send(freq,freq_amp, 100.0, filt_freq)
+    #scs.send(freq,freq_amp, 100.0, filt_freq, filt_width)
     #print(freq, " " , freq_amp)
     print(".",end='')
   print()

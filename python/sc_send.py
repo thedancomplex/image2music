@@ -20,7 +20,7 @@ def off_all():
     return 1
   return 0
 
-def send(note_index=None, note_amp=None, post_gain=1.0, filter_freq=None):
+def send(note_index=None, note_amp=None, post_gain=1.0, filter_freq=None, filter_width=None):
   global client 
   if note_index == None:
     return 1
@@ -33,8 +33,10 @@ def send(note_index=None, note_amp=None, post_gain=1.0, filter_freq=None):
   freq  = get_freq(note_index)
   if(filter_freq == None):
     client.send_message(final, (freq, note_amp*post_gain)) # set the frequency at 440
-  else:
+  elif(filter_width==None):
     client.send_message(final, (freq, note_amp*post_gain, filter_freq)) # set the frequency at 440
+  else:
+    client.send_message(final, (freq, note_amp*post_gain, filter_freq, filter_width)) # set the frequency at 440
 
   return 0
 

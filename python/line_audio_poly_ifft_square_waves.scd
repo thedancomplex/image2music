@@ -124,6 +124,11 @@ s.makeBundle( nil, {
 });
 )
 
+r = Recorder(s);
+s.record(path: "vtx250.wav", numChannels: 2);
+s.record(path: "starry_night.wav", numChannels: 2);
+s.stopRecording();
+
 1.notNil;
 
 
