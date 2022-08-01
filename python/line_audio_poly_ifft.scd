@@ -1,16 +1,23 @@
 s.boot;
 
 (
+z = List.new(128);
+y = List.new(128);
+w = List.new(128);
+v = List.new(128);
 
-
-
+v.free;
+w.free;
+y.free;
+z.free;
 
 //i = Synth( \sin,[ \amp, 0.0] );
-z = List.new(12);
+z = List.new(128);
 //y = Array.new(12);
-y = List.new(12);
-w = List.new(12);
-
+y = List.new(128);
+w = List.new(128);
+v = List.new(128);
+s.makeBundle( nil, {
 128.do(
 	{
 		arg i;
@@ -25,15 +32,17 @@ w = List.new(12);
 		ii = i.asAscii;
 		ii = '/key'++i;
 		iis = '\\sin'++i;
-		ii.postln;
+		//ii.postln;
 		//iis.postln;
 
-		SynthDef( iis, { | amp = 0.01, freq = 333, trig = 1 |
+		j = SynthDef( iis, { | amp = 0.01, freq = 333, trig = 1 |
 			var env, sig;
 			env = EnvGen.kr( Env.asr( 0.001, 0.9, 0.001 ), trig, doneAction: 0 );
 			sig = LFTri.ar( [ freq, freq * 0.999 ], 0.0, amp ) * env;
 			Out.ar( [ 0 ], sig * 0.6 );
 		}).add;
+
+        s.sync;
 
 		h = Synth( iis, [ \amp, 0.0 ] );
 
@@ -74,16 +83,32 @@ w = List.new(12);
 		, ii );
 
 
-
+		v.add(j);
 		w.add(ii);
 		y.add(x);
 		z.add(h);
 
+		//v[i+1] = j;
+		//w[i+1] = ii;
+		//y[i+1] = x;
+		//z[i+1] = h;
+
 		w.postln;
 		y.postln;
 		z.postln;
+		i.postln;
 	}
+  )
+});
 )
 
+s.sync;
+
+(
+z[127].postln;
+y[127].postln;
+w[127].postln;
 )
+
+this.clearAll;
 
