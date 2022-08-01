@@ -1,3 +1,6 @@
+MAJOR = [ 0, 2, 4, 5, 7, 9, 11 ]
+MAJOR_PROGRESSION = [ 0, 2, 2, 1, 2, 2, 2]
+
 #List of all frequencies 
 NOTES                  = [16.35  ,
                           17.32 ,
