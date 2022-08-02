@@ -3,6 +3,11 @@ import time
 import rtmidi
 midiout = rtmidi.MidiOut()
 mid  = mido.MidiFile('radiohead-creep.mid')
+mido.set_backend('mido.backends.rtmidi/LINUX_ALSA')
+#mido.Backend('mido.backends.rtmidi/UNIX_JACK')
+print(mido.backend)
+
+
 #port = mido.open_output('USB Uno MIDI Interface MIDI 1')
 #avaliable_ports = midiout.get_ports()
 #print(avaliable_ports)
@@ -10,7 +15,8 @@ mid  = mido.MidiFile('radiohead-creep.mid')
 
 ports = mido.get_output_names()
 print(ports)
-port = mido.open_output(ports[0])
+#port = mido.open_output(ports[0])
+port = mido.open_output()
 
 msg = mido.Message('note_on', note=60)
 # port.send(msg)
