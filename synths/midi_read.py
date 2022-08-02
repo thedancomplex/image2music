@@ -1,6 +1,9 @@
 import mido
 import time
 import rtmidi
+from rtmidi.midiconstants import NOTE_ON, NOTE_OFF
+
+
 midiout = rtmidi.MidiOut()
 mid  = mido.MidiFile('radiohead-creep.mid')
 mido.set_backend('mido.backends.rtmidi/LINUX_ALSA')
@@ -8,15 +11,15 @@ mido.set_backend('mido.backends.rtmidi/LINUX_ALSA')
 print(mido.backend)
 
 
-#port = mido.open_output('USB Uno MIDI Interface MIDI 1')
-#avaliable_ports = midiout.get_ports()
-#print(avaliable_ports)
-#port = midiout.open_port(0)
+port = mido.open_output('USB Uno MIDI Interface MIDI 1')
+avaliable_ports = midiout.get_ports()
+print(avaliable_ports)
+port = midiout.open_port(1)
 
-ports = mido.get_output_names()
-print(ports)
-#port = mido.open_output(ports[0])
-port = mido.open_output()
+#ports = mido.get_output_names()
+#print(ports)
+##port = mido.open_output(ports[0])
+#port = mido.open_output()
 
 msg = mido.Message('note_on', note=60)
 # port.send(msg)
@@ -24,8 +27,8 @@ msg = mido.Message('note_on', note=60)
 print(port)
 for i in range(128):
   msg = mido.Message('note_off', note=i)
-#  port.send_message(msg)
-  port.send(msg)
+  port.send_message(msg.bytes())
+#  port.send(msg)
 
 for i, track in enumerate(mid.tracks):
   print('Track {}: {}'.format(i, track.name))
@@ -34,9 +37,9 @@ for i, track in enumerate(mid.tracks):
 ## time.sleep(3.0)
 ## print('play')
 for msg in mid.play():
-  print(msg)
-  port.send(msg)
-  #port.send_message(msg)
+  print(msg.bytes())
+  #port.send(msg)
+  port.send_message(msg.bytes())
 
 
 
