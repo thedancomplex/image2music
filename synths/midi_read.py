@@ -36,8 +36,16 @@ for i, track in enumerate(mid.tracks):
 ## print('pause 3 sec')
 ## time.sleep(3.0)
 ## print('play')
+tps = mido.bpm2tempo(200)
+print(tps)
+
+track = mido.MidiTrack()
+track.append(mido.MetaMessage('set_tempo', tempo=tps))
+#mid.tracks.append(track)
+
+
 for msg in mid.play():
-  print(msg.bytes())
+  print(msg)
   #port.send(msg)
   port.send_message(msg.bytes())
 
