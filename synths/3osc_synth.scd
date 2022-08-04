@@ -1,4 +1,6 @@
 s.boot;
+s.options.numOutputBusChannels = 2;
+
 
 (
 z = List.new(3);
@@ -26,7 +28,7 @@ s.makeBundle(nil,
 					square_freq   = 440.0,   square_amp = 0.0, square_width = 0.5,
 					tri_freq      = 440.0,   tri_amp    = 0.0,    tri_phase = 0.0 |
 
-					var env, sin, sig, sigL, sigR, tri, squ, saw, res, lfo0, lfo1;
+					var env, sin, sig, sigL, sigR, tri, squ, saw, res, lfo0, lfo1, fin;
 					env = EnvGen.kr(Env.asr(attackTime: 0.01, sustainLevel: 1.0, releaseTime: 1.0, curve: -4.0), gate: trig, doneAction: 0);
 					lfo0 = SinOsc.ar(freq: lfo0_freq, phase: lfo0_phase, mul: lfo0_amp, add: 0.0);
 					lfo1 = SinOsc.ar(freq: lfo1_freq, phase: lfo1_phase, mul: lfo1_amp, add: 0.0);
@@ -42,8 +44,10 @@ s.makeBundle(nil,
 					sigL = sin * amp * (lfo0_amp+lfo0);
 					sigR = sin * amp * (lfo0_amp-lfo0);
 					scope([sigL, sigR]);
+					fin = { [ sigL, sigR ] };
 
-					Out.ar([0,1],[sigL,sigR]);
+
+					Out.ar({[0]},fin);
 					}
 				).add;
 				s.sync;
@@ -70,4 +74,9 @@ z[0].set(\lfo0_amp,0.5);
 z[0].set(\saw_amp, 0.0);
 z[0].set(\sin_amp, 10.0);
 )
+
+{ [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.1)] }.play;
+s.scope;
+
+s.scope;
 
