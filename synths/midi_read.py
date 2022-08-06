@@ -5,15 +5,17 @@ from rtmidi.midiconstants import NOTE_ON, NOTE_OFF
 
 
 midiout = rtmidi.MidiOut()
-mid  = mido.MidiFile('radiohead-creep.mid')
+#mid  = mido.MidiFile('radiohead-creep.mid')
+mid  = mido.MidiFile('MellonCollieAndTheInfiniteSadness.mid')
 mido.set_backend('mido.backends.rtmidi/LINUX_ALSA')
 #mido.Backend('mido.backends.rtmidi/UNIX_JACK')
 print(mido.backend)
 
 
-port = mido.open_output('USB Uno MIDI Interface MIDI 1')
+##port = mido.open_output('USB Uno MIDI Interface MIDI 1')
 avaliable_ports = midiout.get_ports()
 print(avaliable_ports)
+time.sleep(10)
 port = midiout.open_port(1)
 
 #ports = mido.get_output_names()
