@@ -6,7 +6,8 @@ from rtmidi.midiconstants import NOTE_ON, NOTE_OFF
 
 midiout = rtmidi.MidiOut()
 #mid  = mido.MidiFile('radiohead-creep.mid')
-mid  = mido.MidiFile('MellonCollieAndTheInfiniteSadness.mid')
+#mid  = mido.MidiFile('MellonCollieAndTheInfiniteSadness.mid')
+mid  = mido.MidiFile('radiohead-creep.mid')
 mido.set_backend('mido.backends.rtmidi/LINUX_ALSA')
 #mido.Backend('mido.backends.rtmidi/UNIX_JACK')
 print(mido.backend)
@@ -49,6 +50,10 @@ track.append(mido.MetaMessage('set_tempo', tempo=tps))
 for msg in mid.play():
   print(msg)
   #port.send(msg)
+  byt = msg.bytes()
+  bbyt = byt[0] & 0b00001111
+  print(bbyt)
+#  if bbyt == 3:
   port.send_message(msg.bytes())
 
 
