@@ -1,0 +1,4 @@
+- seperate midi channels in python file
+- send to multiple midi busses at once, maybe use qjackctl
+- get the drums for creep working
+- get the vocals sent to the minibrute
