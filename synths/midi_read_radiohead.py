@@ -51,10 +51,10 @@ for msg in mid.play():
   print(msg)
   #port.send(msg)
   byt = msg.bytes()
-  bbyt = byt[0] & 0b00001111
+  bbyt = byt[0] & 0b00001111 + 1
   print(bbyt)
-#  if bbyt == 3:
-  port.send_message(msg.bytes())
+  if bbyt == 10:
+    port.send_message(msg.bytes())
 
 
 
