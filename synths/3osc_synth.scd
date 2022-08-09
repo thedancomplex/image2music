@@ -43,7 +43,7 @@ s.makeBundle(nil,
 					res  = Resonz.ar(in: sig, freq: filter_center, bwr: filter_width, mul: 1.0, add: 0.0);
 					sigL = sin * amp * (lfo0_amp+lfo0);
 					sigR = sin * amp * (lfo0_amp-lfo0);
-					scope([sigL, sigR]);
+					//scope([sigL, sigR]);
 					fin = { [ sigL, sigR ] };
 
 
@@ -74,6 +74,27 @@ z[0].set(\lfo0_amp,0.5);
 z[0].set(\saw_amp, 0.0);
 z[0].set(\sin_amp, 10.0);
 )
+
+(
+z[0].set(\lfo0_freq, 0.2);
+z[0].set(\lfo1_freq, 1.0);
+z[0].set(\lfo1_phase, pi);
+z[0].set(\lfo0_amp,0.5);
+z[0].set(\saw_amp, 0.0);
+z[0].set(\sin_amp, 10.0);
+
+z[1].set(\lfo0_freq, 0.2);
+z[1].set(\lfo1_freq, 1.0);
+z[1].set(\lfo1_phase, 0.0);
+z[1].set(\lfo0_amp,0.5);
+z[1].set(\saw_amp, 0.8);
+z[1].set(\sin_amp, 10.0);
+)
+
+
+z[1].set(\saw_amp, 1.5);
+z[0].set(\sin_amp, 1.0);
+z[0].set(\sin_freq, 445);
 
 { [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.1)] }.play;
 s.scope;
