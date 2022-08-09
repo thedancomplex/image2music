@@ -38,6 +38,7 @@ MIDIIn.addFuncTo(\noteOn, ~noteOnFunc);
 	if (node.notNil, {
 		node.release;
 		keys.put(num, nil);
+		num.postln;
 	});
 };
 MIDIIn.addFuncTo(\noteOff, ~noteOffFunc);
@@ -48,4 +49,4 @@ MIDIIn.addFuncTo(\noteOff, ~noteOffFunc);
 (
 MIDIIn.removeFuncFrom(\noteOn, ~noteOnFunc);
 MIDIIn.removeFuncFrom(\noteOff, ~noteOffFunc);
-)
+).
